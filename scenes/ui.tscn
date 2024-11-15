@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://dka32tacd58b4"]
+
+[ext_resource type="Script" path="res://scripts/ui.gd" id="1_56xpi"]
+[ext_resource type="FontFile" uid="uid://hhvxnthsfu4f" path="res://fonts/SourceCodePro-Light.otf" id="1_ulddr"]
+[ext_resource type="Texture2D" uid="uid://j8btu6b1hwsk" path="res://textures/retry_icon.png" id="2_0i0l1"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_dqvdi"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_8w3jo"]
+events = [SubResource("InputEventKey_dqvdi")]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_56xpi")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -153.5
+offset_top = -40.5
+offset_right = 153.5
+offset_bottom = 40.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ulddr")
+theme_override_font_sizes/font_size = 75
+text = "You won!"
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+theme_override_constants/h_separation = 32
+theme_override_constants/icon_max_width = 64
+theme_override_fonts/font = ExtResource("1_ulddr")
+theme_override_font_sizes/font_size = 50
+shortcut = SubResource("Shortcut_8w3jo")
+shortcut_in_tooltip = false
+text = "Retry"
+icon = ExtResource("2_0i0l1")
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
