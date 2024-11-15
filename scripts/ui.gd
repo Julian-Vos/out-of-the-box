@@ -19,7 +19,7 @@ func animate(position):
 	
 	$VBoxContainer.visible = true
 
-func _on_button_pressed():
+func _on_retry_pressed():
 	$VBoxContainer.visible = false
 	
 	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
@@ -27,7 +27,6 @@ func _on_button_pressed():
 	tween.tween_property($ColorRect, 'modulate:a', 0, 0.35)
 	tween.tween_callback(func(): visible = false)
 	
-	player.position.x = -700
-	player.position.y = 4
+	player.position = get_parent().get_current_level_retry_position()
 	
 	player.enabled = true

@@ -36,23 +36,22 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 50
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Message" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_ulddr")
 theme_override_font_sizes/font_size = 75
 text = "You won!"
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="Retry" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_default_cursor_shape = 2
-theme_override_constants/h_separation = 32
-theme_override_constants/icon_max_width = 64
+theme_override_constants/h_separation = 25
+theme_override_constants/icon_max_width = 50
 theme_override_fonts/font = ExtResource("1_ulddr")
 theme_override_font_sizes/font_size = 50
 shortcut = SubResource("Shortcut_8w3jo")
-shortcut_in_tooltip = false
 text = "Retry"
 icon = ExtResource("2_0i0l1")
 
-[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Retry" to="." method="_on_retry_pressed"]

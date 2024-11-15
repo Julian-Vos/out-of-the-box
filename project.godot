@@ -21,6 +21,10 @@ window/size/viewport_width=1200
 window/size/viewport_height=700
 window/dpi/allow_hidpi=false
 
+[gui]
+
+timers/tooltip_delay_sec=1.0
+
 [input]
 
 left={

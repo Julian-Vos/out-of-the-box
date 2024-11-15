@@ -41,11 +41,11 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _on_area_2d_body_entered(_body):
-	$PlayerFragments.position.x = position.x - -700
-	$PlayerFragments.position.y = position.y - 4
+	var current_level_retry_position = get_parent().get_current_level_retry_position()
 	
-	position.x = -700
-	position.y = 4
+	$PlayerFragments.position = position - current_level_retry_position
+	
+	position = current_level_retry_position
 	
 	enabled = false
 	
@@ -53,10 +53,13 @@ func _on_area_2d_body_entered(_body):
 	$PlayerFragments.visible = true
 	
 	$PlayerFragments.animate(
-		velocity.length() / 500,
 		func():
 			enabled = true
 			
 			$Sprite2D.visible = true
-			$PlayerFragments.visible = false
+			$PlayerFragments.visible = false,
+		velocity.length() / 500
 	)
+	
+	velocity.x = 0
+	velocity.y = 0
