@@ -6,8 +6,15 @@ extends Area2D
 		size = value
 		
 		$CollisionShape2D.shape.size = size
+@export var direction = Vector2(0, 0):
+	set(value):
+		direction = value
+		
+		$StaticBody2D.position = direction * size
 
 func _on_area_entered(_area):
+	$StaticBody2D/CollisionShape2D.set_deferred('disabled', false)
+	
 	var level = get_parent()
 	var game = level.get_parent()
 	
