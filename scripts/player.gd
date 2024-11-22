@@ -8,6 +8,9 @@ const JUMP_STRENGTH = 1350
 
 var enabled = true
 var fell_at
+var disable_one_way_collision_on_land = false
+
+@onready var tile_map_layer = $'../TileMapLayer'
 
 func _physics_process(delta):
 	if enabled && Input.is_action_pressed('left'):
@@ -22,6 +25,17 @@ func _physics_process(delta):
 		velocity.x -= min(ACCELERATION_PER_SECOND * delta, abs(velocity.x)) * sign(velocity.x)
 	
 	if is_on_floor():
+		if get_parent().current_level == 5 && enabled && Input.is_action_just_pressed('down'):
+			var tile_data_left = tile_map_layer.get_cell_tile_data(tile_map_layer.local_to_map(position + Vector2(-40, 171)))
+			var tile_data_center = tile_map_layer.get_cell_tile_data(tile_map_layer.local_to_map(position + Vector2(0, 171)))
+			var tile_data_right = tile_map_layer.get_cell_tile_data(tile_map_layer.local_to_map(position + Vector2(40, 171)))
+			
+			if tile_data_left == null && tile_data_center == null && tile_data_right == null:
+				tile_map_layer.tile_set.get_source(0).get_tile_data(Vector2.ZERO, 0).set_collision_polygon_one_way(0, 0, true)
+				
+				set_deferred('disable_one_way_collision_on_land', true)
+				set_deferred('position', position + Vector2.DOWN)
+		
 		if fell_at != null:
 			fell_at = null
 			
@@ -37,8 +51,13 @@ func _physics_process(delta):
 			fell_at = 0
 			
 			velocity.y = -JUMP_STRENGTH
+		elif get_parent().current_level == 2 && velocity.y > -JUMP_STRENGTH / 4.0 && velocity.y < 0:
+			velocity.y = -JUMP_STRENGTH / 4.0
 	
-	move_and_slide()
+	if move_and_slide() && disable_one_way_collision_on_land:
+		disable_one_way_collision_on_land = false
+		
+		tile_map_layer.tile_set.get_source(0).get_tile_data(Vector2.ZERO, 0).set_collision_polygon_one_way(0, 0, false)
 
 func _on_area_2d_body_entered(_body):
 	var current_level_retry_position = get_parent().get_current_level_retry_position()
