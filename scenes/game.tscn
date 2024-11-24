@@ -40,7 +40,6 @@ script = ExtResource("1_kmguk")
 visible = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -1400)
 zoom = Vector2(0.5, 0.5)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -124,6 +123,14 @@ position = Vector2(1050, 104)
 
 [node name="Flag" parent="Level6" instance=ExtResource("2_vwcca")]
 position = Vector2(-1050, 500)
+
+[node name="Secret" parent="Level6" instance=ExtResource("5_q3y0d")]
+position = Vector2(1050, 867)
+size = Vector2(300, 50)
+direction = Vector2(0, -4.84)
+
+[node name="Level7" type="Node2D" parent="."]
+position = Vector2(2400, 1400)
 
 [node name="Player" parent="." instance=ExtResource("1_3hpyh")]
 position = Vector2(-700, 4)

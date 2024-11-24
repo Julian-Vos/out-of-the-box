@@ -6,7 +6,11 @@ const GRAVITY_PER_SECOND = 3750
 const COYOTE_MILLISECONDS = 75
 const JUMP_STRENGTH = 1350
 
-var enabled = true
+var enabled = true:
+	set(value):
+		enabled = value
+		
+		$StandstillTimer.paused = !enabled
 var fell_at
 var disable_one_way_collision_on_land = false
 
@@ -54,6 +58,9 @@ func _physics_process(delta):
 		elif get_parent().current_level == 2 && velocity.y > -JUMP_STRENGTH / 4.0 && velocity.y < 0:
 			velocity.y = -JUMP_STRENGTH / 4.0
 	
+	if get_parent().current_level == 6 && velocity != Vector2.ZERO:
+		$StandstillTimer.start(24)
+	
 	if move_and_slide() && disable_one_way_collision_on_land:
 		disable_one_way_collision_on_land = false
 		
@@ -82,3 +89,7 @@ func _on_area_2d_body_entered(_body):
 	
 	velocity.x = 0
 	velocity.y = 0
+
+func _on_standstill_timer_timeout():
+	for i in 6:
+		tile_map_layer.set_cell(Vector2i(66 + i, 12))

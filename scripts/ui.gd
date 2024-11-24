@@ -1,7 +1,6 @@
 extends CanvasLayer
 
 const GREEN = Color8(106, 190, 48, 128)
-const TRANSPARENT = Color(0, 0, 0, 0)
 
 @onready var player = $'../Player'
 
@@ -27,7 +26,7 @@ func _on_retry_pressed():
 	
 	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	
-	tween.tween_property($ColorRect, 'modulate', TRANSPARENT, 0.35)
+	tween.tween_property($ColorRect, 'modulate:a', 0, 0.35)
 	tween.tween_callback(func(): visible = false)
 	
 	player.position = get_parent().get_current_level_retry_position()
