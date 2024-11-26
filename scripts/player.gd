@@ -11,7 +11,11 @@ var enabled = true:
 		enabled = value
 		
 		$StandstillTimer.paused = !enabled
+		
+		if !enabled:
+			dragging_offset = null
 var fell_at
+var dragging_offset = null
 var disable_one_way_collision_on_land = false
 
 @onready var tile_map_layer = $'../TileMapLayer'
@@ -30,9 +34,9 @@ func _physics_process(delta):
 	
 	if is_on_floor():
 		if get_parent().current_level == 5 && enabled && Input.is_action_just_pressed('down'):
-			var tile_data_left = tile_map_layer.get_cell_tile_data(tile_map_layer.local_to_map(position + Vector2(-40, 171)))
+			var tile_data_left = tile_map_layer.get_cell_tile_data(tile_map_layer.local_to_map(position + Vector2(-48, 171)))
 			var tile_data_center = tile_map_layer.get_cell_tile_data(tile_map_layer.local_to_map(position + Vector2(0, 171)))
-			var tile_data_right = tile_map_layer.get_cell_tile_data(tile_map_layer.local_to_map(position + Vector2(40, 171)))
+			var tile_data_right = tile_map_layer.get_cell_tile_data(tile_map_layer.local_to_map(position + Vector2(48, 171)))
 			
 			if tile_data_left == null && tile_data_center == null && tile_data_right == null:
 				tile_map_layer.tile_set.get_source(0).get_tile_data(Vector2.ZERO, 0).set_collision_polygon_one_way(0, 0, true)
@@ -61,6 +65,9 @@ func _physics_process(delta):
 	if get_parent().current_level == 6 && velocity != Vector2.ZERO:
 		$StandstillTimer.start(24)
 	
+	if dragging_offset != null:
+		velocity = (get_global_mouse_position() - position - dragging_offset).limit_length(75) / delta
+	
 	if move_and_slide() && disable_one_way_collision_on_land:
 		disable_one_way_collision_on_land = false
 		
@@ -87,9 +94,16 @@ func _on_area_2d_body_entered(_body):
 		velocity.length() / 500
 	)
 	
-	velocity.x = 0
-	velocity.y = 0
+	velocity = Vector2.ZERO
 
 func _on_standstill_timer_timeout():
 	for i in 6:
 		tile_map_layer.set_cell(Vector2i(66 + i, 12))
+
+func _on_area_2d_input_event(viewport, event, _shape_idx):
+	if get_parent().current_level == 7 && event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
+		dragging_offset = viewport.canvas_transform.affine_inverse() * event.position - position
+
+func _unhandled_input(event):
+	if dragging_offset != null && event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && !event.pressed:
+		dragging_offset = null

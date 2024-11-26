@@ -1,6 +1,6 @@
 extends Node
 
-var current_level = 6
+var current_level = 7
 
 func _ready():
 	$Camera2D.position = get_current_level_position()

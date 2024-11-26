@@ -20,7 +20,6 @@ shape = SubResource("RectangleShape2D_2eef2")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 4
-input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_2eef2")
@@ -33,4 +32,5 @@ script = ExtResource("3_7jl02")
 one_shot = true
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="timeout" from="StandstillTimer" to="." method="_on_standstill_timer_timeout"]
