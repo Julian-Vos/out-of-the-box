@@ -27,7 +27,6 @@ gdscript/warnings/integer_division=0
 window/size/viewport_width=1200
 window/size/viewport_height=700
 window/stretch/mode="canvas_items"
-window/dpi/allow_hidpi=false
 
 [gui]
 

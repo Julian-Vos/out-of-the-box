@@ -78,7 +78,7 @@ func animate_win(position):
 		0: message = 'You win!'
 		1: message = 'You win?'
 		2: message = 'There must be more to it...'
-		3: message = 'Is this your definition of success? Completing the same task over and over?'
+		3: message = 'Is this your definition of success, completing the same task over and over?'
 		4: message = "That's exactly what they want you to think."
 		5: message = 'Freedom is finding your own way.'
 		6: message = 'Really?'
