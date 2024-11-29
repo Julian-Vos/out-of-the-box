@@ -63,7 +63,7 @@ func _physics_process(delta):
 			velocity.y = -JUMP_STRENGTH / 4.0
 	
 	if get_parent().current_level == 6 && velocity != Vector2.ZERO:
-		$StandstillTimer.start(24)
+		$StandstillTimer.start(20)
 	
 	if dragging_offset != null:
 		velocity = (get_global_mouse_position() - position - dragging_offset).limit_length(75) / delta

@@ -23,12 +23,15 @@ func _on_area_entered(_area):
 	
 	game.current_level = int(level.name.right(1)) + 1
 	
-	var tween = create_tween().set_trans(Tween.TRANS_SINE)
+	var ui = game.get_node('UI')
 	var camera = game.get_node('Camera2D')
+	var tween = create_tween().set_trans(Tween.TRANS_SINE)
 	
 	if game.current_level < 10:
+		ui.show_current_level_name()
+		
 		tween.tween_property(camera, 'position', game.get_current_level_position(), 1)
 	else:
-		tween.tween_property(camera, 'zoom', Vector2(0.05, 0.05), 5).set_ease(Tween.EASE_OUT)
+		ui.animate_end()
 		
-		game.get_node('UI').animate_end()
+		tween.tween_property(camera, 'zoom', Vector2(0.05, 0.05), 5).set_ease(Tween.EASE_OUT)

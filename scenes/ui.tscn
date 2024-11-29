@@ -14,15 +14,33 @@ events = [SubResource("InputEventKey_dqvdi")]
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_56xpi")
 
+[node name="Label" type="Label" parent="."]
+visible = false
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.25
+anchor_right = 0.5
+anchor_bottom = 0.25
+offset_left = -210.0
+offset_top = -22.5
+offset_right = 210.0
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_ulddr")
+theme_override_font_sizes/font_size = 40
+text = "Level 1: Left behind"
+
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+visible = false
 anchors_preset = -1
 anchor_left = 0.25
 anchor_top = 0.5
