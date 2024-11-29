@@ -5,7 +5,7 @@ const LEVEL_NAMES = [
 	"Hold up, what's going on?",
 	'Out of sight, out of mind',
 	'It starts to click',
-	"Let's try the fourth direction",
+	"Let's try a new direction",
 	'Just stay calm now',
 	"They're dragging this out",
 	'Over and out',
@@ -17,11 +17,11 @@ const LEVEL_HINTS = [
 	'The level name tells you which key to hold.',
 	'Find the invisible stairs.',
 	'Some things can be removed with the left mouse button.',
-	"You've gone three directions so far: left, up, right, ...",
+	"You've gone three directions so far: left, up, right...",
 	"Good things come to those who wait.",
 	'Something can be moved with the left mouse button.',
 	'Jump over something you usually jump into.',
-	'The level name contains odd characters.',
+	'The level name contains three digits...',
 ]
 const TRANSPARENT = Color(0, 0, 0, 0)
 
@@ -108,9 +108,9 @@ func _on_retry_pressed():
 func animate_end():
 	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	
-	tween.tween_property($ColorRect, 'modulate', Color.BLACK, 5).from(TRANSPARENT)
+	tween.tween_property($ColorRect, 'modulate', Color.BLACK, 10).from(TRANSPARENT)
 	tween.parallel()
-	tween.tween_property($VBoxContainer, 'modulate:a', 1, 5).from(0)
+	tween.tween_property($VBoxContainer, 'modulate:a', 1, 10).from(0)
 	tween.tween_callback(func(): player.set_physics_process(false))
 	
 	$ColorRect.visible = true

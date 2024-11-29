@@ -35,4 +35,4 @@ func _on_area_entered(_area):
 	else:
 		ui.animate_end()
 		
-		tween.tween_property(camera, 'zoom', Vector2(0.05, 0.05), 5).set_ease(Tween.EASE_OUT)
+		tween.tween_property(camera, 'zoom', Vector2(0.05, 0.05), 10).set_ease(Tween.EASE_OUT)
