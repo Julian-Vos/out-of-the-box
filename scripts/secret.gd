@@ -18,8 +18,17 @@ func _on_area_entered(_area):
 	var level = get_parent()
 	var game = level.get_parent()
 	
+	if game.current_level == 7:
+		game.get_node('Player').dragging_offset = null
+	
 	game.current_level = int(level.name.right(1)) + 1
 	
 	var tween = create_tween().set_trans(Tween.TRANS_SINE)
+	var camera = game.get_node('Camera2D')
 	
-	tween.tween_property(game.get_node('Camera2D'), 'position', game.get_current_level_position(), 0.8)
+	if game.current_level < 10:
+		tween.tween_property(camera, 'position', game.get_current_level_position(), 1)
+	else:
+		tween.tween_property(camera, 'zoom', Vector2(0.05, 0.05), 5).set_ease(Tween.EASE_OUT)
+		
+		game.get_node('UI').animate_end()
