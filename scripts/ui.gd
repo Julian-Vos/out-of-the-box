@@ -12,9 +12,22 @@ const LEVEL_NAMES = [
 	'0ut 0f the b0x',
 ]
 const GREEN = Color8(106, 190, 48, 128)
+const LEVEL_HINTS = [
+	'The level name tells you which direction to go.',
+	'The level name tells you which key to hold.',
+	'Find the invisible stairs.',
+	'Some things can be removed with the left mouse button.',
+	"You've gone three directions so far: left, up, right, ...",
+	"Good things come to those who wait.",
+	'Something can be moved with the left mouse button.',
+	'Jump over something you usually jump into.',
+	'The level name contains odd characters.',
+]
 const TRANSPARENT = Color(0, 0, 0, 0)
 
 var level_name_tween
+var wins = 0
+var current_level_new = true
 
 @onready var player = $'../Player'
 @onready var start_ticks_msec = Time.get_ticks_msec()
@@ -28,14 +41,14 @@ func show_current_level_name():
 	
 	level_name_tween = create_tween().set_trans(Tween.TRANS_SINE)
 	
-	level_name_tween.tween_property($Label, 'anchor_top', 0.25, 0.5).from(0.2)
+	level_name_tween.tween_property($Label, 'anchor_top', 0.2, 0.5).from(0.15)
 	level_name_tween.parallel()
-	level_name_tween.tween_property($Label, 'anchor_bottom', 0.25, 0.5).from(0.2)
+	level_name_tween.tween_property($Label, 'anchor_bottom', 0.2, 0.5).from(0.15)
 	level_name_tween.parallel()
 	level_name_tween.tween_property($Label, 'modulate:a', 1, 0.5).from(0)
-	level_name_tween.tween_property($Label, 'anchor_top', 0.3, 0.5).set_delay(5)
+	level_name_tween.tween_property($Label, 'anchor_top', 0.25, 0.5).set_delay(5)
 	level_name_tween.parallel()
-	level_name_tween.tween_property($Label, 'anchor_bottom', 0.3, 0.5).set_delay(5)
+	level_name_tween.tween_property($Label, 'anchor_bottom', 0.25, 0.5).set_delay(5)
 	level_name_tween.parallel()
 	level_name_tween.tween_property($Label, 'modulate:a', 0, 0.5).set_delay(5)
 	
@@ -58,6 +71,25 @@ func animate_win(position):
 	tween.tween_property($ColorRect, 'modulate', Color.BLACK, 0.65).from(GREEN)
 	
 	$ColorRect.visible = true
+	
+	var message
+	
+	match wins:
+		0: message = 'You win!'
+		1: message = 'You win?'
+		2: message = 'There must be more to it...'
+		3: message = 'Is this your definition of success? Completing the same task over and over?'
+		4: message = "That's exactly what they want you to think."
+		5: message = 'Freedom is finding your own way.'
+		6: message = 'Really?'
+		_:
+			message = "Alright next time you'll get a hint!" if current_level_new else LEVEL_HINTS[get_parent().current_level - 1]
+			
+			current_level_new = false
+	
+	wins += 1
+	
+	$VBoxContainer/Message.text = '[center]%s[/center]' % message
 	$VBoxContainer.visible = true
 
 func _on_retry_pressed():

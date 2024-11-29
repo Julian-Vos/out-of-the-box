@@ -28,6 +28,7 @@ func _on_area_entered(_area):
 	var tween = create_tween().set_trans(Tween.TRANS_SINE)
 	
 	if game.current_level < 10:
+		ui.current_level_new = true
 		ui.show_current_level_name()
 		
 		tween.tween_property(camera, 'position', game.get_current_level_position(), 1)
