@@ -45,9 +45,13 @@ func _physics_process(delta):
 				set_deferred('position', position + Vector2.DOWN)
 		
 		if fell_at != null:
-			fell_at = null
+			if Time.get_ticks_msec() - fell_at > delta * 1000:
+				var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+				
+				tween.tween_property($Sprite2DPivot, 'scale', Vector2(1.1, 1 / 1.1), 0.1)
+				tween.tween_property($Sprite2DPivot, 'scale', Vector2.ONE, 0.15)
 			
-			velocity.y = 0
+			fell_at = null
 	else:
 		if fell_at == null:
 			fell_at = Time.get_ticks_msec()
@@ -82,14 +86,14 @@ func _on_area_2d_body_entered(_body):
 	
 	enabled = false
 	
-	$Sprite2D.visible = false
+	$Sprite2DPivot.visible = false
 	$PlayerFragments.visible = true
 	
 	$PlayerFragments.animate(
 		func():
 			enabled = true
 			
-			$Sprite2D.visible = true
+			$Sprite2DPivot.visible = true
 			$PlayerFragments.visible = false,
 		velocity.length() / 500
 	)
