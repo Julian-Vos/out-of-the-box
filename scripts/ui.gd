@@ -58,9 +58,6 @@ func show_current_level_name():
 	$Label.visible = true
 
 func animate_win(position):
-	if $ColorRect.visible:
-		return
-	
 	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT).set_parallel()
 	var anchor_origin = get_viewport().canvas_transform * position / get_viewport().get_visible_rect().size
 	
@@ -77,7 +74,7 @@ func animate_win(position):
 	match wins:
 		0: message = 'You win!'
 		1: message = 'You win?'
-		2: message = 'There must be more to it...'
+		2: message = 'There must be more to it all...'
 		3: message = 'Is this your definition of success, completing the same task over and over?'
 		4: message = "That's exactly what they want you to think."
 		5: message = 'Freedom is finding your own way.'

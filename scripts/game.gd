@@ -3,10 +3,13 @@ extends Node
 var current_level = 1
 
 func _ready():
-	var window = get_window()
-	
-	window.size *= DisplayServer.screen_get_scale()
-	window.move_to_center()
+	if OS.has_feature('web'):
+		$WorldEnvironment.queue_free()
+	else:
+		var window = get_window()
+		
+		window.size *= DisplayServer.screen_get_scale()
+		window.move_to_center()
 	
 	$Camera2D.position = get_current_level_position()
 	$Player.position = get_current_level_retry_position()
