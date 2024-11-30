@@ -38,3 +38,5 @@ func _unhandled_input(event):
 		
 		for i in 4:
 			$TileMapLayer.set_cell(Vector2i(-72, 31 + i))
+	elif event is InputEventKey && event.keycode == KEY_M && event.pressed && !event.echo:
+		AudioServer.set_bus_mute(0, !AudioServer.is_bus_mute(0))
