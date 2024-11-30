@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bnhay2ki87805"]
+[gd_scene load_steps=7 format=3 uid="uid://bnhay2ki87805"]
 
 [ext_resource type="Texture2D" uid="uid://dnbdesniuek58" path="res://textures/player.png" id="1_6nqvj"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ldqgh"]
 [ext_resource type="Script" path="res://scripts/player_fragments.gd" id="3_7jl02"]
+[ext_resource type="AudioStream" uid="uid://ctr7th8avubgl" path="res://sounds/350905__cabled_mess__jump_c_05.wav" id="4_kijhw"]
+[ext_resource type="AudioStream" uid="uid://c6bik7kxq5us4" path="res://sounds/541887__d4xx__pop-up-sound.wav" id="5_sdhdk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2eef2"]
 size = Vector2(80, 192)
@@ -34,6 +36,14 @@ script = ExtResource("3_7jl02")
 
 [node name="StandstillTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="JumpSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_kijhw")
+volume_db = -3.0
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_sdhdk")
+volume_db = -5.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

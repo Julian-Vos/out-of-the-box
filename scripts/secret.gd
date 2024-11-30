@@ -36,3 +36,5 @@ func _on_area_entered(_area):
 		ui.animate_end()
 		
 		tween.tween_property(camera, 'zoom', Vector2(0.05, 0.05), 10).set_ease(Tween.EASE_OUT)
+	
+	$AudioStreamPlayer.play()

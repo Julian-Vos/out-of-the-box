@@ -62,6 +62,8 @@ func _physics_process(delta):
 		if fell_at == null || Time.get_ticks_msec() - fell_at < COYOTE_MILLISECONDS:
 			fell_at = 0
 			
+			$JumpSound.play()
+			
 			velocity.y = -JUMP_STRENGTH
 		elif get_parent().current_level == 2 && velocity.y > -JUMP_STRENGTH / 4.0 && velocity.y < 0:
 			velocity.y = -JUMP_STRENGTH / 4.0
@@ -99,6 +101,8 @@ func _on_area_2d_body_entered(_body):
 	)
 	
 	velocity = Vector2.ZERO
+	
+	$HitSound.play()
 
 func _on_standstill_timer_timeout():
 	for i in 6:

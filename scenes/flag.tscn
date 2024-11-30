@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dt1urdqquloku"]
+[gd_scene load_steps=5 format=3 uid="uid://dt1urdqquloku"]
 
 [ext_resource type="Texture2D" uid="uid://cad0x7k3pcvdq" path="res://textures/flag.png" id="1_4wd36"]
 [ext_resource type="Script" path="res://scripts/flag.gd" id="1_rckuv"]
+[ext_resource type="AudioStream" uid="uid://sjelndfudxcl" path="res://sounds/495005__evretro__win-video-game-sound.wav" id="3_hpajq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ugktr"]
 size = Vector2(129, 200)
@@ -18,5 +19,9 @@ texture = ExtResource("1_4wd36")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(10.5, 0)
 shape = SubResource("RectangleShape2D_ugktr")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_hpajq")
+volume_db = -5.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
